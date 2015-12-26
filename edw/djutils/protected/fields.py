@@ -36,6 +36,16 @@ class ProtectedFileField(FileField):
         kwargs.setdefault('storage', protected_storage)
         super().__init__(*args, **kwargs)
 
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+
+        if self.storage is not protected_storage:
+            kwargs['storage'] = self.storage
+        else:
+            kwargs.pop('storage', None)
+
+        return name, path, args, kwargs
+
 
 class ProtectedImageField(ProtectedFileField, ImageField):
     attr_class = ProtectedImageFieldFile
