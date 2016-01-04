@@ -21,4 +21,5 @@ class ProtectedStorage(LazyObject):
     def _setup(self):
         self._wrapped = ProtectedFileSystemStorage()
 
+
 protected_storage = ProtectedStorage()
