@@ -33,8 +33,11 @@ class ProtectedFileField(FileField):
     attr_class = ProtectedFieldFile
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('storage', protected_storage)
+        # workaround django bug that evaluates any non-default lazy storage
+        #kwargs.setdefault('storage', protected_storage)
+        storage = kwargs.pop('storage', protected_storage)
         super().__init__(*args, **kwargs)
+        self.storage = storage
 
     def deconstruct(self):
         name, path, args, kwargs = super().deconstruct()
