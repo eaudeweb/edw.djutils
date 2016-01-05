@@ -9,6 +9,7 @@ from .storage import protected_storage
 class ProtectedFieldFile(FieldFile):
     @property
     def url(self):
+        self._require_file()
         if self.field.view is not None:
             return wild_reverse(self.field.view,
                                 kwargs={'pk': self.instance.pk,
