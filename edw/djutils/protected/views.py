@@ -95,8 +95,11 @@ class ProtectedObjectMixin(object):
     with a `get_object()` method.
     """
     def check_permissions(self, request):
+        if not super().check_permissions(request):
+            return False
+
         obj = self.get_object()
-        return super().check_permissions(request) and all(
+        return all(
             permission.has_object_permission(request, self, obj)
             for permission in self.get_permissions()
         )
