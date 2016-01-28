@@ -266,7 +266,8 @@ class ProtectedDetailFileView(ProtectedBaseDetailFileView):
                 "You need to define %s.file_field." % type(self).__name__)
 
     def get_queryset(self):
-        return super().get_queryset().only(self.file_field)
+        return super().get_queryset(
+            ).select_related(None).prefetch_related(None).only(self.file_field)
 
     def _get_file(self):
         """ returns a `django.db.models.fields.files.FieldFile` instance """
