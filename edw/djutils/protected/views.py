@@ -10,7 +10,7 @@ from django.shortcuts import redirect
 from django.views.generic.base import View, TemplateView
 from django.views.generic.detail import SingleObjectMixin, DetailView
 from django.views.generic.list import ListView
-from django.views.generic.edit import FormView, FormMixinBase
+from django.views.generic.edit import FormView, FormMixinBase, UpdateView
 from django.views.static import serve as serve_file
 
 
@@ -152,6 +152,16 @@ class ProtectedFormView(ProtectedView,
     """
     Convenience view adding permissions support to
     `django.views.generic.FormView`.
+    """
+    pass
+
+
+class ProtectedUpdateView(ProtectedView,
+                          UpdateView,
+                          metaclass=ProtectedFormViewBase):
+    """
+    Convenience view adding permissions support to
+    `django.views.generic.UpdateView`.
     """
     pass
 
