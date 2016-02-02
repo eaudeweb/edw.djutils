@@ -156,7 +156,8 @@ class ProtectedFormView(ProtectedView,
     pass
 
 
-class ProtectedUpdateView(ProtectedView,
+class ProtectedUpdateView(ProtectedObjectMixin,
+                          ProtectedView,
                           UpdateView,
                           metaclass=ProtectedFormViewBase):
     """
