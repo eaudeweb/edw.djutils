@@ -10,7 +10,10 @@ from django.shortcuts import redirect
 from django.views.generic.base import View, TemplateView
 from django.views.generic.detail import SingleObjectMixin, DetailView
 from django.views.generic.list import ListView
-from django.views.generic.edit import FormView, FormMixinBase, UpdateView
+from django.views.generic.edit import (
+    FormView, FormMixinBase,
+    UpdateView, DeleteView, CreateView,
+)
 from django.views.static import serve as serve_file
 
 
@@ -156,6 +159,17 @@ class ProtectedFormView(ProtectedView,
     pass
 
 
+class ProtectedCreateView(ProtectedObjectMixin,
+                          ProtectedView,
+                          CreateView,
+                          metaclass=ProtectedFormViewBase):
+    """
+    Convenience view adding permissions support to
+    `django.views.generic.CreateView`.
+    """
+    pass
+
+
 class ProtectedUpdateView(ProtectedObjectMixin,
                           ProtectedView,
                           UpdateView,
@@ -163,6 +177,18 @@ class ProtectedUpdateView(ProtectedObjectMixin,
     """
     Convenience view adding permissions support to
     `django.views.generic.UpdateView`.
+    """
+    pass
+
+
+class ProtectedDeleteView(ProtectedObjectMixin,
+                          ProtectedView,
+                          DeleteView,
+                          metaclass=ProtectedFormViewBase):
+
+    """
+    Convenience view adding permissions support to
+    `django.views.generic.DeleteView`.
     """
     pass
 
