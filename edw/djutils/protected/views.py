@@ -2,7 +2,7 @@ import os.path
 import warnings
 from functools import wraps
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http.response import (
     HttpResponse, HttpResponseNotFound, HttpResponseForbidden,
 )
@@ -84,12 +84,10 @@ class ProtectedView(View, metaclass=ProtectedViewBase):
         )
 
     def permission_denied(self, request):
-        # TODO: set the payload based on custom user checks
-        # e.g. anonymous should be redirected to login
         if self.permission_denied_redirect:
             return redirect(self.permission_denied_redirect)
 
-        return HttpResponseForbidden()
+        raise PermissionDenied()
 
 
 class ProtectedObjectMixin(object):
