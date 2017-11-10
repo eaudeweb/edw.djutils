@@ -21,4 +21,7 @@ setup(
     #namespace_packages=['edw'],
     # must not be zipped, or it won't work as a namespace package
     zip_safe=False,
+    install_requires=[
+        'Django>=1.9,<1.10',
+    ],
 )
